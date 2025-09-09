@@ -4,6 +4,47 @@
     <meta charset="UTF-8" />
     <title>Pillas Brain</title>
     <link rel="stylesheet" href="/public/style.css" />
+    <style>
+      /* Blog modal overlay */
+      #blogModal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(10, 0, 25, 0.85);
+        backdrop-filter: blur(6px);
+        z-index: 2000;
+      }
+      #blogModal.active {
+        display: flex;
+      }
+      #blogModalContent {
+        background: rgba(30, 0, 70, 0.9);
+        border: 2px dashed #ffff66;
+        border-radius: 18px;
+        padding: 30px;
+        width: 80%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow-y: auto;
+        color: #fff9a6;
+        box-shadow: 0 0 25px rgba(221, 160, 221, 0.6),
+          0 0 45px rgba(255, 255, 102, 0.5);
+      }
+      #blogModal .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 28px;
+        color: #ffff66;
+        cursor: pointer;
+      }
+      #blogModal .close-btn:hover {
+        transform: rotate(90deg);
+        color: #ffcc00;
+      }
+    </style>
   </head>
   <body>
     <header class="header">
@@ -18,11 +59,6 @@
     </header>
 
     <section class="grid">
-      <div class="iframe-overlay" id="iframeOverlay">
-        <div class="close-btn" id="closeOverlay">×</div>
-        <iframe src="" id="blogIframe"></iframe>
-      </div>
-
       <div class="side-container">
         <div class="profile">
           <div class="profile-picture-container">
@@ -125,5 +161,29 @@
         <div class="main-content-section"></div>
       </div>
     </section>
+
+    <!-- Blog Modal -->
+    <div id="blogModal">
+      <div id="blogModalContent"></div>
+      <div class="close-btn" id="closeBlogModal">×</div>
+    </div>
+
+    <script>
+      const openBtn = document.getElementById("openBlogBtn");
+      const modal = document.getElementById("blogModal");
+      const modalContent = document.getElementById("blogModalContent");
+      const closeBtn = document.getElementById("closeBlogModal");
+
+      openBtn.addEventListener("click", async () => {
+        const res = await fetch("/blog");
+        const html = await res.text();
+        modalContent.innerHTML = html; // injects blog.ejs
+        modal.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+    </script>
   </body>
 </html>

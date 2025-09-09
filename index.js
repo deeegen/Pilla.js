@@ -50,6 +50,15 @@ app.get("/blog", (req, res) => {
   res.render("blog", { title: "My Blog", posts });
 });
 
+// New partial route for modal
+app.get("/blog/partial", (req, res) => {
+  const posts = loadPosts().map((p) => ({
+    ...p,
+    parsedContent: parseContent(p.content),
+  }));
+  res.render("partials/blogContent", { posts });
+});
+
 app.get("/upload", (req, res) => {
   res.render("upload", { title: "Upload a Post" });
 });

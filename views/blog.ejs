@@ -1,43 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/public/styles.css" />
-    <style>
-      .media-img {
-        max-width: 400px;
-        height: auto;
-        display: block;
-        margin: 10px 0;
-        border-radius: 8px;
-      }
-      .media-video,
-      .media-audio {
-        max-width: 400px;
-        width: 100%;
-        margin: 10px 0;
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <h1><%= title %></h1>
+<style>
+  #blogModalContent h1,
+  #blogModalContent h2 {
+    text-shadow: 0 0 5px #ffff66, 0 0 10px #ffcc00;
+  }
 
-    <% if (posts.length === 0) { %>
-    <p>No posts yet. <a href="/upload">Create one?</a></p>
-    <% } else { %>
-    <ul>
-      <% posts.forEach(post => { %>
-      <li>
-        <h2><%= post.title %></h2>
-        <small><%= new Date(post.date).toLocaleString() %></small>
-        <div><%- post.parsedContent %></div>
-      </li>
-      <% }) %>
-    </ul>
-    <% } %>
+  #blogModalContent ul {
+    list-style: none;
+    padding: 0;
+  }
 
-    <a href="/upload">Upload a New Post</a> | <a href="/">Back to Home</a>
-  </body>
-</html>
+  #blogModalContent li {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed #dda0dd;
+    border-radius: 12px;
+  }
+
+  #blogModalContent .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #ffff66;
+    background: linear-gradient(135deg, #1a003a, #0d001f);
+    border: 2px solid #dda0dd;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+
+  #blogModalContent .btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #2a004a, #0d001f);
+  }
+</style>
+
+<h1><%= title %></h1>
+
+<% if (posts.length === 0) { %>
+<p>No posts yet. <a href="/upload">Create one?</a></p>
+<% } else { %>
+<ul>
+  <% posts.forEach(post => { %>
+  <li>
+    <h2><%= post.title %></h2>
+    <small><%= new Date(post.date).toLocaleString() %></small>
+    <div><%- post.parsedContent %></div>
+  </li>
+  <% }) %>
+</ul>
+<% } %>
+
+<a href="/upload" class="btn">Upload a New Post</a> |
+<a href="/" class="btn">Back to Home</a>
