@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,21 @@ app.set("views", path.join(__dirname, "views"));
 
 const postsFile = path.join(__dirname, "posts.json");
 
+// --- Password setup ---
+const PASSWORD_HASH_FILE = path.join(__dirname, "password.hash");
+
+// Initialize password hash if missing
+if (!fs.existsSync(PASSWORD_HASH_FILE)) {
+  if (!process.env.UPLOAD_PASSWORD) {
+    console.error("Error: No UPLOAD_PASSWORD set in environment.");
+    process.exit(1);
+  }
+  const hash = bcrypt.hashSync(process.env.UPLOAD_PASSWORD, 10);
+  fs.writeFileSync(PASSWORD_HASH_FILE, hash);
+}
+const storedHash = fs.readFileSync(PASSWORD_HASH_FILE, "utf-8");
+
+// --- Posts storage ---
 function loadPosts() {
   if (!fs.existsSync(postsFile)) {
     fs.writeFileSync(postsFile, JSON.stringify([]));
@@ -50,7 +66,7 @@ app.get("/blog", (req, res) => {
   res.render("blog", { title: "My Blog", posts });
 });
 
-// New partial route for modal
+// Partial route for AJAX reload
 app.get("/blog/partial", (req, res) => {
   const posts = loadPosts().map((p) => ({
     ...p,
@@ -60,19 +76,28 @@ app.get("/blog/partial", (req, res) => {
 });
 
 app.get("/upload", (req, res) => {
-  res.render("upload", { title: "Upload a Post" });
+  res.render("upload", { title: "Upload a Post", error: null });
 });
 
-app.post("/upload", (req, res) => {
-  const { title, content } = req.body;
+app.post("/upload", async (req, res) => {
+  const { title, content, password } = req.body;
+
+  if (!password || !(await bcrypt.compare(password, storedHash))) {
+    return res.status(401).render("upload", {
+      title: "Upload a Post",
+      error: "Invalid password. Access denied.",
+    });
+  }
+
   if (title && content) {
     const posts = loadPosts();
     posts.push({ title, content, date: new Date().toISOString() });
     savePosts(posts);
   }
+
   res.redirect("/blog");
 });
 
 app.listen(PORT, () => {
-  console.log(`Pilla.js loaded at http://localhost:${PORT}`);
+  console.log(`Secure blog running at http://localhost:${PORT}`);
 });

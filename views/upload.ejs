@@ -8,6 +8,10 @@
   <body>
     <h1><%= title %></h1>
 
+    <% if (error) { %>
+    <p style="color: red"><%= error %></p>
+    <% } %>
+
     <form action="/upload" method="POST">
       <div>
         <label for="title">Title:</label><br />
@@ -17,6 +21,11 @@
       <div>
         <label for="content">Content:</label><br />
         <textarea id="content" name="content" rows="8" required></textarea>
+      </div>
+      <br />
+      <div>
+        <label for="password">Password:</label><br />
+        <input type="password" id="password" name="password" required />
       </div>
       <br />
       <button type="submit">Submit</button>
