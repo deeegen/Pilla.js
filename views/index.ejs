@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pillas Brain</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <canvas id="oscilloscope"></canvas>
+      <h1>Welcome to a Lunatics Brain</h1>
+      <audio id="audio" controls crossorigin="anonymous"></audio>
+      <ul id="playlist">
+        <li class="selected">Song One</li>
+        <li>Song Two</li>
+        <li>Song Three</li>
+      </ul>
+    </header>
+
+    <section class="grid">
+      <div class="iframe-overlay" id="iframeOverlay">
+        <div class="close-btn" id="closeOverlay">×</div>
+        <iframe src="" id="blogIframe"></iframe>
+      </div>
+
+      <div class="side-container">
+        <div class="profile">
+          <div class="profile-picture-container">
+            <img
+              src="public/assets/media/piphppfp.gif"
+              alt="Profile Picture"
+              class="profile-img"
+            />
+            <img
+              src="https://files.catbox.moe/hzfq0a.gif"
+              alt="Icon"
+              class="profile-icon"
+              loading="lazy"
+            />
+          </div>
+          <h2>@Pilla</h2>
+          <div class="status">busy and stuff</div>
+          <p>Gender: F</p>
+          <div class="social-links">
+            <a
+              href="https://roblox.com/users/8517517643"
+              target="_blank"
+              class="social-btn"
+              id="roblox-btn"
+              title="Roblox"
+            >
+              <img
+                src="public/assets/media/logo-roblox.png"
+                alt="Roblox"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://github.com/deeegen"
+              target="_blank"
+              class="social-btn"
+              id="github-btn"
+              title="GitHub"
+            >
+              <img
+                src="public/assets/media/image%20(5).png"
+                alt="GitHub"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://open.spotify.com/user/va9fp0ua12jaw3vixj43cv84d?si=36bc087949b848bd"
+              target="_blank"
+              class="social-btn"
+              id="spotify-btn"
+              title="Spotify"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/480px-Spotify_logo_without_text.svg.png"
+                alt="Spotify"
+                loading="lazy"
+              />
+            </a>
+          </div>
+        </div>
+
+        <div class="media">
+          <p><b>Here are some interests of mine:</b></p>
+          <img
+            src="https://github.com/deeegen/pilla-in-php/blob/main/public/assets/media/1aEY.gif?raw=true"
+            loading="lazy"
+          />
+          <p>Making things online (games, websites)</p>
+          <p>Art (pencil, digital, photography, etc)</p>
+          <p>Socializing :)) I'll talk and listen to (mostly) anyone</p>
+          <button class="open-blog-btn" id="openBlogBtn">Open Blog</button>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="main-text">
+          <div class="title"></div>
+          <div class="subtitle"></div>
+        </div>
+
+        <div class="main-content-section">
+          <h3>Introduction</h3>
+          <p>
+            Hi! I'm Jordan, some random person still addicted to the internet.
+          </p>
+        </div>
+
+        <div class="main-content-section">
+          <h3>Random Stuff</h3>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+          </ul>
+          <h3>Random Stuff</h3>
+          <ul>
+            <li>1</li>
+          </ul>
+        </div>
+
+        <div class="main-content-section"></div>
+      </div>
+    </section>
+  </body>
+</html>
