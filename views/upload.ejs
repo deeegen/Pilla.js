@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <form action="/upload" method="POST">
+      <div>
+        <label for="title">Title:</label><br />
+        <input type="text" id="title" name="title" required />
+      </div>
+      <br />
+      <div>
+        <label for="content">Content:</label><br />
+        <textarea id="content" name="content" rows="8" required></textarea>
+      </div>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="/blog">Back to Blog</a>
+  </body>
+</html>

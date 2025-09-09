@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <style>
+      .media-img {
+        max-width: 400px;
+        height: auto;
+        display: block;
+        margin: 10px 0;
+        border-radius: 8px;
+      }
+      .media-video,
+      .media-audio {
+        max-width: 400px;
+        width: 100%;
+        margin: 10px 0;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <% if (posts.length === 0) { %>
+    <p>No posts yet. <a href="/upload">Create one?</a></p>
+    <% } else { %>
+    <ul>
+      <% posts.forEach(post => { %>
+      <li>
+        <h2><%= post.title %></h2>
+        <small><%= new Date(post.date).toLocaleString() %></small>
+        <div><%- post.parsedContent %></div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+
+    <a href="/upload">Upload a New Post</a> | <a href="/">Back to Home</a>
+  </body>
+</html>
